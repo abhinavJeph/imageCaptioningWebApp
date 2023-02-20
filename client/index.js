@@ -17,8 +17,7 @@ const imageText = document.querySelector("#imageText");
 const toast = document.querySelector(".toast");
 
 const uploadURL = 'https://imageurl.azurewebsites.net/api/HttpTrigger2';
-const imageCaptioningURL = "https://jsonplaceholder.typicode.com/posts";
-const urlUploadURL = "http://localhost:3000/hackathon/"
+const urlUploadURL = "https://image-captioning-web-app.onrender.com/hackathon/"
 
 
 const imgContainer = document.querySelector(".image-container");
@@ -147,37 +146,18 @@ const onFileUploadSuccess = (res) => {
   getTextFromImage(res);
 };
 
-const getTextFromImage = (body) => {
+const getTextFromImage = async (data) => {
   resultContainer.style.display = "block";
-  const requestOptions = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      // "Authorization": "Bearer YOUR_API_KEY",
-    },
-    body: body
-  };
-
-
-  // Send the API request and get the response
-  fetch(imageCaptioningURL, requestOptions)
-    .then((response) => response.json())
-    .then(async (data) => {
-      console.log(data);
-      if (data.url) {
-        var item = await uploadURLToDB(data.url);
-        imageText.innerText = item ? item["text"] : data.url;
-        translateBtn.style.display = 'inline-block';
-      } else {
-        const text = "The API did not provide a caption for the image.";
-        showToast(text);
-        console.error(text);
-      }
-    })
-    .catch((error) => {
-      showToast("There is an error in making the API request");
-      console.error("There was an error making the API request:", error);
-    });
+  data = JSON.parse(data);
+  if (data.url) {
+    var item = await uploadURLToDB(data.url);
+    imageText.innerText = item ? item["text"] : data.url;
+    translateBtn.style.display = 'inline-block';
+  } else {
+    const text = "The API did not provide a caption for the image.";
+    showToast(text);
+    console.error(text);
+  }
 }
 
 async function uploadURLToDB(url) {
@@ -198,6 +178,7 @@ async function uploadURLToDB(url) {
   
     var response = await fetch(urlUploadURL, requestOptions);
     response = response.json();
+    console.log(response);
     return response;
   } catch (error) {
     showToast(error.message);
