@@ -18,7 +18,7 @@ const toast = document.querySelector(".toast");
 
 const uploadURL = 'https://imageurl.azurewebsites.net/api/HttpTrigger2';
 const urlUploadURL = "https://image-captioning-web-app.onrender.com/hackathon/"
-const getLatestItemURL = 'https://image-captioning-web-app.onrender.com/latest';
+const getLatestItemURL = 'https://image-captioning-web-app.onrender.com/hackathon/latest';
 
 const imgContainer = document.querySelector(".image-container");
 const imgVector = document.querySelector(".image-vector");
