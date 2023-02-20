@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require("cors");
 const PORT = 3000;
+const hostname = "0.0.0.0";
 
 mongoose.connect("mongodb+srv://abhinavmeenameena:abhinav@cluster0.axxyagj.mongodb.net/test", { useNewUrlParser: true })
 const db = mongoose.connection
@@ -23,4 +24,4 @@ app.get('/', (req, res) => {
 const hackathonRouter = require('./routes/hackathon')
 app.use('/hackathon', hackathonRouter)
 
-app.listen(PORT, () => console.log('Server Started'))
+app.listen(PORT, hostname, () => console.log('Server Started'))
