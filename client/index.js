@@ -205,7 +205,7 @@ window.addEventListener('beforeunload', function (event) {
 translateBtn.addEventListener('click', (event) => {
   event.preventDefault(); // prevent the button from submitting a form, if it's inside one
 
-  fetch(getLatestItemURL)
+  fetch("https://image-captioning-web-app.onrender.com/hackathon/latest")
     .then(response => {
       if (response.ok) {
         return response.json();
